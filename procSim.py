@@ -7,12 +7,13 @@ class raju:
         self.memory = [0] * 256     #memory
         self.pc = 0;                #program counter
 
-    def decode(self, instructions):
-        parts = instructions.split()
-        opcodes = parts[0]
-        operands = parts[1:]
-        return opcodes, operands
-
+    #def decode(self, instructions):
+     #   parts = instructions.split()
+      #  opcodes = parts[0]
+       # operands = parts[1:]
+        #return opcodes, operands
+    def lex(machine_bytes):
+        for i 
     def execute_instructions(self, opcodes, operands):
         if opcodes.lower() == "add":
             dest, src1, src2 = operands
@@ -34,15 +35,17 @@ class raju:
             self.execute_instructions(opcodes, operands)
             print(self.registers)
 
+        
+
 
 
 #if __main__ == __init__:
 
-
-
 a = raju();
 
 machine_code = ["mov R3, 7","mov R2, 6","mov R0, 5","add R1, R2, R3", "add R2, R1, R3"]
+
+machine_bytes = ["10010110100010100101101000101010100101001010]
 
 a.execute(machine_code)
 
