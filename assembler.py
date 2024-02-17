@@ -4,6 +4,7 @@ opcodemap={
       "011000010110010001100100" : "10000000",   #ADD 
       "011011010110111101110110" : "01000000",   #mov
       "011100110111010101100010" : "11000000"   #sub
+
         }
 
 operandmap = {
@@ -19,6 +20,7 @@ operandmap = {
 
 machine_code = []
 final = []
+
 def parser(assembly):
     instructions = assembly.split('\n')
     return instructions
@@ -39,12 +41,12 @@ def mapper(machine_code):
             start += 16
         final.append(total_buff)
 
+
 def assembler(Instructions):
     for instruction in Instructions:
         cleaned = clean_instructions(instruction)
         bit_str = ''.join(format(ord(i), '08b') for i in cleaned)
         opcode = bit_str[:24]
-        print(opcode)
         if len(instruction) != 0:
             if opcode == "011000010110010001100100":
                 mapped = opcodemap["011000010110010001100100"] + bit_str[24:]
@@ -55,7 +57,6 @@ def assembler(Instructions):
             elif opcode == "011100110111010101100010":  
                 mapped = opcodemap["011100110111010101100010" ] + bit_str[24:]
                 machine_code.append(mapped)
-    print(machine_code)
     mapper(machine_code)
  
 def clean_instructions(instructions):
@@ -69,4 +70,5 @@ if __name__ == "__main__":
     assembly = file.read()
     parsed = parser(assembly.lower())
     assembler(parsed)
-    print(final)
+    fileout = open("bin.txt", "w")
+    fileout.write('\n'.join(final))
