@@ -1,26 +1,3 @@
-"""10000000000000010000001000000011
-01000000000000100011000000110101
-11000000000000100000001100000100
-
-00000001 00000010 00000011
-000000100000001100000100
-
-original_string = ''.join(chr(int(chunk, 2)) for chunk in chunks)
-
-
-01110010 00110001 00000001
-binary_str = "0100011101100101011011000110110001101111011011110110011101101011"
-
-# Split the binary string into 8-bit chunks
-chunks = [binary_str[i:i+8] for i in range(0, len(binary_str), 8)]
-
-# Convert each 8-bit chunk back to its ASCII character representation
-result = ''.join(chr(int(chunk, 2)) for chunk in chunks)
-
-print("The original string after binary conversion: " + result)
-
-
-"""
 
 
 opcodemap={
