@@ -17,7 +17,7 @@ operandmap = {
         "0111001000111000" : "00001000"  #{'r8': '0111001000111000'}
         }
 
-registers = [0,0,2,3,0,0,0,0]
+registers = [0,0,0,0,0,0,0,0]
 
 def processor(machine_code):
     instructions = parser(machine_code)
@@ -35,7 +35,7 @@ def parser(assembly):
     return instructions
 
 def execute(opcode,instruction, mode):       # mode 0 --- add/sub
-                                        # mode 1 --- mov
+                                             # mode 1 --- mov
     if mode == 0:
         operands = instruction[8:32]
         #dest = operandmap[operands[:8]]
@@ -47,21 +47,27 @@ def execute(opcode,instruction, mode):       # mode 0 --- add/sub
             dest_chunks = [dest[i:i+8] for i in range(0, len(dest), 8)]
             op1_chunks = [op2[i:i+8] for i in range(0, len(op1), 8)] 
             op2_chunks = [op2[i:i+8] for i in range(0, len(op2), 8)] 
-            registers[int((''.join(chr(int(chunk, 2)) for chunk in dest_chunks))[1])] =  registers[int((''.join(chr(int(chunk, 2)) for chunk in op1_chunks))[1])] + registers[int((''.join(chr(int(chunk, 2)) for chunk in op2_chunks))[1])]
+            registers[int((''.join(chr(int(chunk, 2)) for chunk in dest_chunks))[1]) - 1] =  registers[int((''.join(chr(int(chunk, 2)) for chunk in op1_chunks))[1])- 1] + registers[int((''.join(chr(int(chunk, 2)) for chunk in op2_chunks))[1])- 1]
             print(registers)
 
         elif opcode == "11000000":
             dest_chunks = [dest[i:i+8] for i in range(0, len(dest), 8)]
             op1_chunks = [op2[i:i+8] for i in range(0, len(op1), 8)] 
             op2_chunks = [op2[i:i+8] for i in range(0, len(op2), 8)] 
-            registers[int((''.join(chr(int(chunk, 2)) for chunk in dest_chunks))[1])] =  registers[int((''.join(chr(int(chunk, 2)) for chunk in op1_chunks))[1])] - registers[int((''.join(chr(int(chunk, 2)) for chunk in op2_chunks))[1])]
+            registers[int((''.join(chr(int(chunk, 2)) for chunk in dest_chunks))[1]) - 1] =  registers[int((''.join(chr(int(chunk, 2)) for chunk in op1_chunks))[1]) - 1] - registers[int((''.join(chr(int(chunk, 2)) for chunk in op2_chunks))[1]) - 1]
             print(registers)
 
 
     if mode == 1:
-        operands = instruction[8:32]
+        operands = instruction[8:40]
         dest = list(filter(lambda x: operandmap[x] == operands[:8], operandmap))[0]
-        value = instruction[8:32]
+        value = instruction[16:40]
+        if opcode == "01000000":
+            dest_chunks = [dest[i:i+8] for i in range(0, len(dest), 8)]
+            value_chunks = [value[i:i+8] for i in range(0, len(value), 8)]
+            registers[int((''.join(chr(int(chunk, 2)) for chunk in dest_chunks))[1])-1] = int((''.join(chr(int(chunk, 2)) for chunk in value_chunks))[1]) 
+            print(registers)
+
 
 
 
