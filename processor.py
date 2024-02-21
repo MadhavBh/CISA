@@ -1,5 +1,3 @@
-
-
 opcodemap={
       "011000010110010001100100" : "10000000",   #ADD 
       "011011010110111101110110" : "01000000",   #mov
@@ -57,7 +55,6 @@ def execute(opcode,instruction, mode):       # mode 0 --- add/sub
             registers[int((''.join(chr(int(chunk, 2)) for chunk in dest_chunks))[1]) - 1] =  registers[int((''.join(chr(int(chunk, 2)) for chunk in op1_chunks))[1]) - 1] - registers[int((''.join(chr(int(chunk, 2)) for chunk in op2_chunks))[1]) - 1]
             print(registers)
 
-
     if mode == 1:
         operands = instruction[8:40]
         dest = list(filter(lambda x: operandmap[x] == operands[:8], operandmap))[0]
@@ -68,10 +65,6 @@ def execute(opcode,instruction, mode):       # mode 0 --- add/sub
             registers[int((''.join(chr(int(chunk, 2)) for chunk in dest_chunks))[1])-1] = int((''.join(chr(int(chunk, 2)) for chunk in value_chunks))[1]) 
             print(registers)
 
-
-
-
- 
 if __name__ == "__main__":
     file = open("bin.txt", "r")
     machine_code = file.read()
