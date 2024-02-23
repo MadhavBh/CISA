@@ -59,6 +59,7 @@ def execute(opcode,instruction, mode):       # mode 0 --- add/sub
         operands = instruction[8:40]
         dest = list(filter(lambda x: operandmap[x] == operands[:8], operandmap))[0]
         value = instruction[16:40]
+
         if opcode == "01000000":
             dest_chunks = [dest[i:i+8] for i in range(0, len(dest), 8)]
             value_chunks = [value[i:i+8] for i in range(0, len(value), 8)]

@@ -1,3 +1,5 @@
 mov r1, 02
 mov r2, 02
 add r3, r1, r2
+sub r4, r1,r2
+add r5, r2, r1
